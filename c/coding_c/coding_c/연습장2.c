@@ -3,10 +3,16 @@ int mainbbb(void)
 {
 	
 
+	char s[10], i;
 
+	printf("enter str : ");
+	scanf_s("%s", s, sizeof(s));
 
-	printf("%5d", 2);
-	
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+
+	printf("length : %d", i);
 	
 	
 	
