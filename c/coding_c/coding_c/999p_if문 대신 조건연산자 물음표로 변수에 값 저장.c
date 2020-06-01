@@ -1,5 +1,5 @@
 #include <stdio.h>
-int main5465462(void)
+int main34287482(void)
 {
 	
 
