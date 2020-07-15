@@ -3,35 +3,41 @@
 # 1.같은 열 x 2.같은 행 x 3.같은 대각선 x
 # 이 문제는 '완전탐색' 과 관련된다고 함
 
-def eightqueen(n):
+#추가할 사항1 : n을 입력받고 정상적인 결과 출력하기
+#추가할 사항2 : 반복문 블록의 x.remove(?) 없이 코딩하기 -> x.append(?) 대신에 x[?] = ? 를 이용
+#추가할 사항3 : [?, ?, 2, ?, ?, 7, ?, ?] 에서 3번째 7번째 값 2와 7 처럼, 어떤 특정 리스트를 입력받고 나머지 물음표를 만족하는 퀸-체스판 출력하기
+
+def eightqueen(n): #현재 입력받는 n은 8만 가능 :( 
 
     x = list()
-    y = [0,1,2,3,4,5,6,7]
+    y = list()
+    for i in range(n):
+        y.append(i)
     result = list()
 
-    for i0 in y: #0
+    for i0 in range(n):
         x.append(i0)
-        for i1 in y: #1
+        for i1 in range(n):
             if diagnal(x,y,i1): continue
-            else: x.append(i1)
-            for i2 in y: #2
+            x.append(i1)
+            for i2 in range(n):
                 if diagnal(x,y,i2): continue
-                else: x.append(i2)
-                for i3 in y: #3
+                x.append(i2)
+                for i3 in range(n):
                     if diagnal(x,y,i3): continue
-                    else: x.append(i3)
-                    for i4 in y: #4
+                    x.append(i3)
+                    for i4 in range(n):
                         if diagnal(x,y,i4): continue
-                        else: x.append(i4)
-                        for i5 in y: #5
+                        x.append(i4)
+                        for i5 in range(n):
                             if diagnal(x,y,i5): continue
-                            else: x.append(i5)
-                            for i6 in y: #6
+                            x.append(i5)
+                            for i6 in range(n):
                                 if diagnal(x,y,i6): continue
-                                else: x.append(i6)
-                                for i7 in y: #7
+                                x.append(i6)
+                                for i7 in range(n):
                                     if diagnal(x,y,i7): continue
-                                    else: x.append(i7)
+                                    x.append(i7)
                                     
                                     if len(x) == n: result.append(x.copy())
                                     # result.append(x)로 하면 안된다. x가 수정되면 result 안의 x도 수정된다. 같은 메모리 주소이다.
@@ -47,7 +53,7 @@ def eightqueen(n):
     return result
 
 def diagnal(x, y, i):
-
+    
     k = len(x)
     j = 0
     z = set(x)
@@ -61,7 +67,7 @@ def diagnal(x, y, i):
     else: return False
     
 #main
-num = 8 #num = int(input('enter number n (n x n) : '))
+num = int(input('enter number n (n x n) : '))
 answer = eightqueen(num)
 for i in answer:
     print(i)
