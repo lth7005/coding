@@ -15,41 +15,39 @@
 여기 구슬이 두 개 있다. 어떻게 하면 좀 더 적게 던져서 유리구슬의 강도를 알아낼 수 있을까?!
 #(참고사항) 문제의 취지 : break구문, 진수표현
 '''
-
 #입력 : 구슬 개수. 건물 층수. 구슬이 처음으로 깨지는 층수(or 깨지지 않는 마지막 층수)
 #출력 : 검사 횟수(=구슬을 던진 횟수)
 
-#f = int(input('몇 층 건물인지 입력해주세요 :'))
-#gb = int(input('몇 개의 구슬인지 입력해주세요 :'))
-#key = int(input('구슬의 강도(깨지지 않는 마지막 층수) : '))
+'''
+추가할 것 및 궁금한 것
 
-#def 깨진다 안깨진다 함수??(): 반환값은 bool
+#파이썬 내장함수의 소스코드 보는 방법은??
+#현재 위치한 실제 층수를 출력하기
+'''
 
-def next_check_floar(f, gb, count): #남은 층수에서 다음 검사할 위치를 찾아주는 함수
-    
-    if gb == 0:
-        print('[{:3}] next check floar :{:3}'.format(count,0), end=', ')
-        next_check_floar = 0
-    elif gb == 1:
-        print('[{:3}] next check floar :{:3}'.format(count,1), end=', ')
-        next_check_floar = 1
-    elif gb == 2: #x가 0인 경우 수행 문장 쓸 것.
-        for i in range(f): #sqrt함수의 소스코드를 보는 방법이 없을까
-            if i**2 <= f < (i+1)**2:
+def NextCheckFloar(f, gb, count): #남은 층수에서 다음 검사할 위치를 찾아주는 함수
+    if gb in {0,1}: #구슬이 1개 (또는 0개?)
+        print('[{:3}] next check floar :{:3}'.format(count,gb), end=', ')
+        next_f = gb
+    elif gb == 2: #구슬이 2개
+        for i in range(1,f+1):
+            if f // i in [i-1, i]:
+                next_f = i
                 print('[{:3}] next check floar :{:3}'.format(count,i), end=', ')
-                next_check_floar = i
     else: #구슬이 3개 이상
         print('[{:3}] next check floar :{:3}'.format(count,f//2), end=', ')
-        next_check_floar = f // 2
+        if f // 2: # 몫이 0이 아닌 경우
+            next_f = f // 2
+        else: # 몫이 0인 경우, 위의 if문에서 몫이 0이고 next_f = 0 하면 무한루프 발생
+            next_f = 1
     
-    return next_check_floar
+    return next_f
 
-def strength_of_glass_bead(f,gb,key): #유리구슬의 단단한 정도를 알려주는 함수
+def HowManyThrowGlassBeads(f,gb,key): #유리구슬의 단단한 정도를 알려주는 함수
     
     count = 1
     while 1:
-        n = next_check_floar(f,gb,count)
-        # n 수정 필요.
+        n = NextCheckFloar(f,gb,count)
         if n > key: # 구슬이 깨질 때
             gb -= 1
             f = n
@@ -61,24 +59,22 @@ def strength_of_glass_bead(f,gb,key): #유리구슬의 단단한 정도를 알�
         else: # n == key
             print('this is key!,   bead : {:3}, remaining floaor : {:3}, key : {:3}, current floar : {:3}'.format(gb, f, key, 0))
             break
-        
-        
+               
         count += 1
 
     print('count :', count)
     return count
 
-        #if f == 0 or f == : 
-        #    break
-  
+#main
 print('\n:)\n')
 
-f = 100
-gb = 2
-key = 100
-r = 0 #구슬을 던진 횟수
-print('builing floar : {:3}, key floar : {:3}, bead : {:3}'.format(f,key,gb))      
-strength_of_glass_bead(f,gb,key)
+lst = input('건물의 층수, 구슬의 개수, 구슬이 깨지지 않는 마지막 층수 :').split(',')
+f = int(lst[0]) #건물의 층수
+gb = int(lst[1]) #구슬의 개수
+key = int(lst[2]) #구슬의 강도(구슬이 깨지지 않는 마지막 층수)
 
-#꼭대기층 == key 일때 에러메세지 해결
-#3, 10층 건물의 다음 탐색 알고리즘 확인. -> 현재는 1**2 <= 3 <2**2 에서 n=1, 2**2 <= 8 < 3**2 에서 n=2 이다. 8 = 2*4 +  
+print('builing floar : {:3}, key floar : {:3}, bead : {:3}'.format(f,key,gb))      
+count = HowManyThrowGlassBeads(f,gb,key)
+
+
+
