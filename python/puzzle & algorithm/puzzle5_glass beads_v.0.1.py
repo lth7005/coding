@@ -43,8 +43,7 @@ def NextCheckFloar(f, gb, count): #남은 층수에서 다음 검사할 위치�
     
     return next_f
 
-def HowManyThrowGlassBeads(f,gb,key): #유리구슬의 단단한 정도를 알려주는 함수
-    
+def HowManyThrowGlassBeads(f,gb,key): #단단한 정도를 알아내는 데 구슬을 던진 총 횟수를 반환
     count = 1
     while 1:
         n = NextCheckFloar(f,gb,count)
